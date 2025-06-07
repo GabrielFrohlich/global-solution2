@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Mapa - Disaster Help</title>
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <style>
+        body {
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+        }
+
+        .map-section {
+            padding: 80px 0;
+        }
+
+        .map-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 10px;
+        }
+
+        .map-subtitle {
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-map-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .navbar-dark {
+            background-color: #212529 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar simples -->
+    <nav class="navbar navbar-dark p-3">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">← Voltar</a>
+        </div>
+    </nav>
+
+    <!-- Conteúdo do Mapa -->
+    <section class="map-section">
+        <div class="container text-center">
+            <h2 class="map-title">Áreas Afetadas e Centros de Apoio</h2>
+            <p class="map-subtitle">Consulte em tempo real os locais impactados por enchentes e os pontos de atendimento emergencial mais próximos.</p>
+            <div class="card-map-container">
+                <div id="map"></div>
+            </div>
+            <div class="mt-4 text-muted">
+                <p>Os marcadores indicam regiões monitoradas ou com presença de equipes de resgate e suporte. A localização será atualizada conforme novas informações forem recebidas.</p>
+                <p>Caso você esteja em uma área afetada, entre em contato conosco pela seção <a href="index.html#contact">Contato</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([-23.5505, -46.6333], 11); // São Paulo
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Marcadores de exemplo
+        const locais = [
+            { lat: -23.5505, lng: -46.6333, nome: 'Centro de Apoio - SP', info: 'Atendimento 24h' },
+            { lat: -23.5596, lng: -46.6588, nome: 'Abrigo Escola Municipal', info: 'Capacidade para 120 pessoas' },
+            { lat: -23.5432, lng: -46.6299, nome: 'Posto Médico Emergencial', info: 'Atendimento de primeiros socorros' }
+        ];
+
+        locais.forEach(loc => {
+            L.marker([loc.lat, loc.lng]).addTo(map)
+                .bindPopup(`<strong>${loc.nome}</strong><br>${loc.info}`);
+        });
+    </script>
+</body>
+</html>

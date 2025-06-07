@@ -52,3 +52,16 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Aqui você pode adicionar lógica para enviar os dados via AJAX, se quiser
+
+    // Mostrar mensagem de confirmação
+    const confirmation = document.getElementById('confirmationMessage');
+    confirmation.style.display = 'block';
+
+    // Rolar até o centro da tela
+    confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
